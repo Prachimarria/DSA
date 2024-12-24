@@ -1,0 +1,98 @@
+# Node class represents a single node in a doubly linked list
+class Node:
+    def __init__(self, data=None, prev=None, next=None):
+        self.data = data  # Stores the data of the node
+        self.prev = prev  # Points to the previous node
+        self.next = next  # Points to the next node
+
+# Doubly Linked List class
+class DLL:
+    def __init__(self, start=None):
+        self.start = start  # Points to the first node in the list
+
+    # Check if the list is empty
+    def is_empty(self):
+        return self.start is None
+
+    # Insert a new node at the start of the list
+    def insert_at_start(self, item):
+        n = Node(data=item, next=self.start)  # Create a new node with next pointing to the current start
+        if not self.is_empty():  # If the list is not empty, update the previous pointer of the current start
+            self.start.prev = n
+        self.start = n  # Update start to the new node
+
+    # Insert a new node at the end of the list
+    def insert_at_last(self, item):
+        if self.is_empty():  # If the list is empty, set the new node as the start
+            self.start = Node(data=item)
+        else:
+            temp = self.start
+            while temp.next is not None:  # Traverse to the last node
+                temp = temp.next
+            n = Node(data=item, prev=temp)  # Create a new node with previous pointing to the last node
+            temp.next = n  # Update the last node's next pointer to the new node
+
+    # Search for a node containing the given item
+    def search(self, item):
+        temp = self.start
+        while temp is not None:  # Traverse through the list
+            if temp.data == item:  # If the node's data matches the item
+                return temp  # Return the node
+            temp = temp.next
+        return None  # Return None if the item is not found
+
+    # Insert a new node after a given node
+    def insert_after(self, temp, item):
+        if temp is not None:  # Check if the given node exists
+            n = Node(data=item, prev=temp, next=temp.next)  # Create a new node with proper previous and next pointers
+            if temp.next is not None:  # If temp is not the last node, update the next node's previous pointer
+                temp.next.prev = n
+            temp.next = n  # Update the given node's next pointer to the new node
+
+    # Print all elements in the list
+    def print_all(self):
+        temp = self.start
+        while temp is not None:  # Traverse through the list
+            print(temp.data, end=' ')  # Print the data of each node
+            temp = temp.next  # Move to the next node
+        print()
+
+    # Delete the first node of the list
+    def delete_first(self):
+        if self.start is not None:  # If the list is not empty
+            if self.start.next is None:  # If the list has only one node
+                self.start = None  # Remove the node by setting start to None
+            else:
+                self.start = self.start.next  # Update start to the second node
+                self.start.prev = None  # Remove the previous pointer of the new start
+
+    # Delete the last node of the list
+    def delete_last(self):
+        if self.start is None:  # If the list is empty, do nothing
+            return
+        if self.start.next is None:  # If the list has only one node
+            self.start = None  # Remove the node by setting start to None
+        else:
+            temp = self.start
+            while temp.next is not None:  # Traverse to the last node
+                temp = temp.next
+            temp.prev.next = None  # Update the second last node's next pointer to None
+
+# Example usage of the DLL class
+l = DLL()  # Create an empty doubly linked list
+
+# Insert elements into the list
+l.insert_at_last(60)  # Insert 60 at the end
+l.insert_at_start(20)  # Insert 20 at the start
+l.insert_after(l.search(20), 30)  # Insert 30 after the node containing 20
+
+# Print all elements in the list
+l.print_all()  # Output: 20 30 60
+
+print('Delete first element')
+l.delete_first()  # Delete the first element (20)
+l.print_all()  # Output: 30 60
+
+print('Delete last element')
+l.delete_last()  # Delete the last element (60)
+l.print_all()  # Output: 30
