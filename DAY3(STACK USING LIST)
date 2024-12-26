@@ -1,0 +1,75 @@
+class Stack:
+    """
+    This class implements a basic Stack data structure using a Python list. 
+    A stack follows the Last-In, First-Out (LIFO) principle.
+    """
+
+    def __init__(self):
+        """
+        Initializes an empty stack by creating an empty list.
+        """
+        self.items = []
+
+    def push(self, data):
+        """
+        Adds an element to the top of the stack.
+
+        """
+        self.items.append(data)
+
+    def is_empty(self):
+        """
+        Checks if the stack is empty.
+
+        Returns:
+            True if the stack is empty, False otherwise.
+        """
+        return len(self.items) == 0
+
+    def pop(self):
+        """
+        Removes and returns the element at the top of the stack.
+
+        Raises:
+            IndexError: If the stack is empty.
+        """
+        if not self.is_empty():
+            return self.items.pop()
+        else:
+            raise IndexError('Stack is empty')
+
+    def peek(self):
+        """
+        Returns the element at the top of the stack without removing it.
+
+        Raises:
+            IndexError: If the stack is empty.
+        """
+        if not self.is_empty():
+            return self.items[-1]
+        else:
+            raise IndexError('Stack is empty')
+
+    def size(self):
+        """
+        Returns the number of elements currently in the stack.
+        """
+        return len(self.items)
+
+# Create a stack instance
+s1 = Stack()
+
+# Push elements onto the stack
+s1.push(10)
+s1.push(20)
+s1.push(30)
+s1.push(40)
+
+# Print the top element
+print('Top element is: ', s1.peek())
+
+# Pop and print the top element
+print('Delete the last element: ', s1.pop())
+
+# Print the current size of the stack
+print('Size: ', s1.size())
