@@ -1,0 +1,89 @@
+class Stack(list):
+    """
+    This class implements a Stack data structure using Python's built-in list. 
+    A Stack follows the Last-In, First-Out (LIFO) principle.
+    """
+
+    def is_empty(self):
+        """
+        Checks if the stack is empty.
+
+        Returns:
+            bool: True if the stack is empty, False otherwise.
+        """
+        return len(self) == 0
+
+    def push(self, data):
+        """
+        Pushes an element onto the top of the stack.
+
+        
+        """
+        self.append(data)
+
+    def peek(self):
+        """
+        Returns the top element of the stack without removing it.
+
+        """
+        if not self.is_empty():
+            return self[-1]
+        else:
+            raise IndexError('Stack is empty')
+
+    def pop1(self):
+        """
+        Removes and returns the top element of the stack.
+
+        Returns:
+            The top element of the stack.
+
+        Raises:
+            IndexError: If the stack is empty.
+        """
+        if not self.is_empty():
+            return self.pop()
+        else:
+            raise IndexError('Stack is empty')
+
+    def size(self):
+        """
+        Returns the number of elements currently in the stack.
+
+        Returns:
+            int: The size of the stack.
+        """
+        return len(self)
+
+    def insert(self, index, data):
+        """
+        Raises an AttributeError to prevent the use of the 'insert' method.
+
+        Raises:
+            AttributeError: Always raised to disallow the 'insert' method.
+        """
+        raise AttributeError("No attribute like 'insert' exists in Stack")
+
+# Example usage of the Stack class
+s1 = Stack()  # Create an instance of the Stack class
+
+# Check if the stack is initially empty
+print("Is the list empty:", s1.is_empty())
+
+# Push elements onto the stack
+s1.push(10)
+s1.push(50)
+s1.push(100)
+s1.push(150)
+
+# Peek at the top element without removing it
+print('Top element is:', s1.peek())
+
+# Remove and return the last element (top of the stack)
+print('delete the last element:', s1.pop())
+
+# Get the size of the stack after popping an element
+print('size:', s1.size())
+
+# Check if the stack is empty after adding and removing elements
+print("is the list empty now:", s1.is_empty())
