@@ -1,0 +1,64 @@
+# Define the Queue class
+class Queue:
+    def __init__(self):
+        self.items = []  # Initialize an empty list to store the queue elements
+
+    # Check if the queue is empty
+    def is_empty(self):
+        return len(self.items) == 0  # Return True if the list is empty
+
+    # Add an element to the end of the queue
+    def enqueue(self, data):
+        self.items.append(data)  # Append the data to the list
+
+    # Remove and return the front element of the queue
+    def dequeue(self):
+        if not self.is_empty():  # Check if the queue is not empty
+            return self.items.pop(0)  # Remove and return the first element
+        else:
+            raise IndexError('Queue Underflow')  # Raise an error if the queue is empty
+
+    # Return the front element without removing it
+    def get_front(self):
+        if not self.is_empty():  # Check if the queue is not empty
+            return self.items[0]  # Return the first element
+        else:
+            raise IndexError('Queue Underflow')  # Raise an error if the queue is empty
+
+    # Return the rear element without removing it
+    def rear(self):
+        if not self.is_empty():  # Check if the queue is not empty
+            return self.items[-1]  # Return the last element
+        else:
+            raise IndexError('Queue Underflow')  # Raise an error if the queue is empty
+
+    # Return the number of elements in the queue
+    def size(self):
+        return len(self.items)  # Return the length of the list
+
+
+# Example usage of the Queue class
+q1 = Queue()
+
+# Try to get the front element of an empty queue
+try:
+    print(q1.get_front())  # This will raise an error because the queue is empty
+except IndexError as e:
+    print(e.args[0])  # Output: Queue Underflow
+
+# Add elements to the queue
+q1.enqueue(10)
+q1.enqueue(20)
+q1.enqueue(30)
+q1.enqueue(40)
+q1.enqueue(50)
+
+# Display the front and rear elements of the queue
+print('Front =', q1.get_front(), "Rear =", q1.rear())  # Output: Front = 10 Rear = 50
+
+# Remove an element from the front of the queue
+try:
+    q1.dequeue()  # Removes the first element (10)
+    print('Queue has now', q1.size(), 'elements')  # Output: Queue has now 4 elements
+except IndexError as e:
+    print(e.args[0])
