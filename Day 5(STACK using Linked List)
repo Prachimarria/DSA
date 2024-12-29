@@ -1,0 +1,60 @@
+# Define a Node class to represent each element in the stack
+class Node:
+    def __init__(self, data=None, next=None):
+        self.data = data  # The data stored in the node
+        self.next = next  # Pointer to the next node in the stack
+
+# Define the Stack class
+class Stack:
+    def __init__(self, start=None):
+        self.start = start  # Pointer to the top of the stack
+        self.count = 0      # Counter to track the number of elements in the stack
+
+    # Check if the stack is empty
+    def is_empty(self):
+        return self.start == None  # Returns True if the stack is empty
+
+    # Add an item to the top of the stack
+    def push(self, item):
+        n = Node(item, self.start)  # Create a new node with the given item
+        self.start = n              # Update the top of the stack
+        self.count += 1             # Increment the count
+
+    # Remove and return the item from the top of the stack
+    def pop(self):
+        if not self.is_empty():         # Check if the stack is not empty
+            item = self.start.data      # Retrieve the data from the top node
+            self.start = self.start.next  # Update the top to the next node
+            self.count -= 1             # Decrement the count
+            return item                 # Return the removed item
+        else:
+            raise IndexError('Stack is empty')  # Raise an error if the stack is empty
+
+    # Return the top item without removing it
+    def peek(self):
+        if not self.is_empty():         # Check if the stack is not empty
+            return self.start.data      # Return the data from the top node
+        else:
+            raise IndexError('Stack is empty')  # Raise an error if the stack is empty
+
+    # Return the current size of the stack
+    def size(self):
+        return self.count  # Return the count of items in the stack
+
+# Example usage of the Stack class
+s1 = Stack()
+
+# Push elements onto the stack
+s1.push(10)
+s1.push(20)
+s1.push(30)
+s1.push(40)
+
+# Display the top element
+print('Top element is: ', s1.peek())  # Output: Top element is: 40
+
+# Remove and display the top element
+print('Delete the last element: ', s1.pop())  # Output: Delete the last element: 40
+
+# Display the size of the stack
+print('Size: ', s1.size())  # Output: Size: 3
