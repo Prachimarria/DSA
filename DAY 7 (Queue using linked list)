@@ -1,0 +1,79 @@
+# Node class represents each individual element in the queue
+class Node:
+    def __init__(self, item=None, next=None):
+        self.item = item  # The value stored in the node
+        self.next = next  # Pointer to the next node
+
+# Queue class for implementing the queue using a linked list
+class Queue:
+    def __init__(self):
+        self.front = None  # Pointer to the front of the queue
+        self.rear = None   # Pointer to the rear of the queue
+        self.items_count = 0  # To keep track of the number of elements
+
+    # Check if the queue is empty
+    def is_empty(self):
+        return self.front == None
+
+    # Add an element to the rear of the queue
+    def enqueue(self, data):
+        n = Node(data)  # Create a new node
+        if self.is_empty():
+            self.front = n  # If empty, new node becomes the front
+        else:
+            self.rear.next = n  # Link the current rear to the new node
+        self.rear = n  # Update the rear pointer
+        self.items_count += 1  # Increment the count
+
+    # Remove an element from the front of the queue
+    def dequeue(self):
+        if self.is_empty():
+            raise IndexError('Queue is empty')  # Handle empty queue
+        elif self.front == self.rear:
+            self.front = None  # If only one element, reset the queue
+        else:
+            self.front = self.front.next  # Move the front pointer to the next node
+        self.items_count -= 1  # Decrement the count
+
+    # Get the element at the front of the queue
+    def get_front(self):
+        if self.is_empty():
+            raise IndexError('Queue is empty')  # Handle empty queue
+        else:
+            return self.front.item
+
+    # Get the element at the rear of the queue
+    def get_rear(self):
+        if self.is_empty():
+            raise IndexError('Queue is empty')  # Handle empty queue
+        else:
+            return self.rear.item
+
+    # Get the current size of the queue
+    def size(self):
+        return self.items_count
+
+# Testing the Queue implementation
+q = Queue()
+try:
+    # Trying to access the front of an empty queue
+    q.get_front()
+except IndexError as e:
+    print(e.args[0])  # Expected: "Queue is empty"
+
+# Enqueue elements
+q.enqueue(10)
+q.enqueue(20)
+q.enqueue(30)
+q.enqueue(40)
+q.enqueue(50)
+
+# Display front and rear elements
+print('Front =', q.get_front(), "Rear =", q.get_rear())  
+
+# Dequeue an element and display the updated size
+try:
+    q.dequeue()
+    print('Queue has now', q.size(), 'elements')  # Expected: 4 elements
+except IndexError as e:
+    print(e.args[0])  # Handle any errors
