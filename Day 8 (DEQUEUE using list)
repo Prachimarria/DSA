@@ -1,0 +1,66 @@
+class Dequeue:
+  
+  def __init__(self):
+    # Initializes an empty list to represent the deque
+    self.items = []
+
+  def is_empty(self):
+    # Returns True if the deque is empty, else False
+    return len(self.items) == 0
+  
+  def insert_front(self, data):
+    # Inserts an element at the front of the deque using the insert method at index 0
+    self.items.insert(0, data)
+
+  def insert_rear(self, data):
+    # Appends an element at the rear of the deque using append
+    self.items.append(data)
+
+  def delete_front(self):
+    # Removes and returns the element from the front of the deque
+    # Raises an IndexError if the deque is empty
+    if self.is_empty():
+      raise IndexError('Dequeue is empty')
+    else:
+      return self.items.pop(0)
+
+  def delete_rear(self):
+    # Removes and returns the element from the rear of the deque
+    # Raises an IndexError if the deque is empty
+    if self.is_empty():
+      raise IndexError('Dequeue is empty')
+    else:
+      return self.items.pop()
+
+  def get_front(self):
+    # Returns the element at the front of the deque without removing it
+    # Raises an IndexError if the deque is empty
+    if self.is_empty():
+      raise IndexError('Dequeue is empty')
+    else:
+      return self.items[0]
+
+  def get_rear(self):
+    # Returns the element at the rear of the deque without removing it
+    # Raises an IndexError if the deque is empty
+    if self.is_empty():
+      raise IndexError('Dequeue is empty')
+    else:
+      return self.items[-1]
+
+  def size(self):
+    # Returns the current size (number of elements) of the deque
+    return len(self.items)
+
+
+# Example usage of the Dequeue class
+d1 = Dequeue()
+
+# Insert elements at the front and rear of the deque
+d1.insert_front(10)
+d1.insert_front(20)
+d1.insert_rear(30)
+d1.insert_rear(40)
+
+# Print the front and rear elements of the deque
+print('Front =', d1.get_front(), "Rear =", d1.get_rear())
