@@ -1,0 +1,98 @@
+class Node:
+  def __init__(self, item=None, prev=None, next=None):
+    # Initializes a node with item, previous pointer, and next pointer
+    self.prev = prev  # Points to the previous node
+    self.item = item  # Stores the value of the node
+    self.next = next  # Points to the next node
+
+class Dequeue:
+  def __init__(self):
+    # Initializes an empty deque with front, rear pointers and a count
+    self.front = None  # Points to the front of the deque
+    self.rear = None   # Points to the rear of the deque
+    self.count = 0     # Keeps track of the number of elements in the deque
+
+  def is_empty(self):
+    # Checks if the deque is empty by comparing count to 0
+    return self.count == 0
+
+  def insert_front(self, data):
+    # Inserts a new node with the data at the front of the deque
+    n = Node(data, None, self.front)  # Create new node with given data
+    if self.is_empty():
+      # If the deque is empty, both front and rear will point to the new node
+      self.rear = n
+    else:
+      # Otherwise, adjust the front's previous pointer to the new node
+      self.front.prev = n
+    self.front = n  # Move the front pointer to the new node
+    self.count += 1  # Increment count
+
+  def insert_rear(self, data):
+    # Inserts a new node with the data at the rear of the deque
+    n = Node(data, self.rear)  # Create new node with given data
+    if self.is_empty():
+      # If the deque is empty, both front and rear will point to the new node
+      self.front = n
+    else:
+      # Otherwise, adjust the rear's next pointer to the new node
+      self.rear.next = n
+    self.rear = n  # Move the rear pointer to the new node
+    self.count += 1  # Increment count
+
+  def delete_front(self):
+    # Removes the node from the front of the deque
+    if self.is_empty():
+      # Raise error if deque is empty
+      raise IndexError('Dequeue is empty')
+
+    elif self.front == self.rear:
+      # If there is only one node, set both front and rear to None
+      self.front = None
+      self.rear = None
+    else:
+      # Otherwise, move the front pointer to the next node
+      self.front = self.front.next
+      self.front.prev = None  # Set the previous pointer of the new front to None
+
+    self.count -= 1  # Decrement count
+
+  def delete_rear(self):
+    # Removes the node from the rear of the deque
+    if self.is_empty():
+      # Raise error if deque is empty
+      raise IndexError('Dequeue is empty')
+    elif self.front == self.rear:
+      # If there is only one node, set both front and rear to None
+      self.front = None
+      self.rear = None
+    else:
+      # Otherwise, move the rear pointer to the previous node
+      self.rear = self.rear.prev
+      self.rear.next = None  # Set the next pointer of the new rear to None
+    self.count -= 1  # Decrement count
+
+  def get_front(self):
+    # Returns the item at the front of the deque
+    if self.is_empty():
+      raise IndexError('Dequeue is empty')
+    return self.front.item
+
+  def get_rear(self):
+    # Returns the item at the rear of the deque
+    if self.is_empty():
+      raise IndexError('Dequeue is empty')
+    return self.rear.item
+
+  def size(self):
+    # Returns the current size of the deque
+    return self.count
+
+# Example usage:
+d1 = Dequeue()
+d1.insert_front(10)  # Insert 10 at the front
+d1.insert_front(20)  # Insert 20 at the front
+d1.insert_rear(30)   # Insert 30 at the rear
+d1.insert_rear(40)   # Insert 40 at the rear
+print('Front =', d1.get_front(), "Rear =", d1.get_rear())  # Output: Front = 20, Rear = 40
+print('Size : ', d1.size())  # Output: Size : 4
