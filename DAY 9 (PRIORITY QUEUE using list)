@@ -1,0 +1,68 @@
+class PriorityQueue:
+  def __init__(self):
+    """
+    Initializes an empty priority queue.
+    The queue will store items as tuples with their associated priority.
+    """
+    self.items = []
+
+  def push(self, data, priority):
+    """
+    Inserts an item into the priority queue with the given priority.
+    The items in the queue are arranged such that the item with the highest priority (smallest number) is at the front.
+
+    Args:
+      data: The item to be added to the queue.
+      priority: The priority level of the item. A smaller number indicates higher priority.
+    """
+    index = 0  # smaller the number, more the priority
+    # Loop to find the correct position for the new item based on its priority
+    while index < len(self.items) and self.items[index][1] <= priority:
+      index += 1
+    # Insert the item at the appropriate position
+    self.items.insert(index, (data, priority))
+
+  def is_empty(self):
+    """
+    Checks if the priority queue is empty.
+
+    Returns:
+      bool: True if the queue is empty, False otherwise.
+    """
+    return len(self.items) == 0
+
+  def pop(self):
+    """
+    Removes and returns the item with the highest priority (smallest priority number).
+    Raises an error if the queue is empty.
+
+    Returns:
+      The data of the item with the highest priority.
+    
+    Raises:
+      IndexError: If the queue is empty.
+    """
+    if self.is_empty():
+      raise IndexError('Priority Queue is empty')
+    # Remove and return the item with the highest priority (front of the queue)
+    return self.items.pop(0)[0]
+
+  def size(self):
+    """
+    Returns the number of items in the priority queue.
+
+    Returns:
+      int: The number of items in the queue.
+    """
+    return len(self.items)
+
+# Example usage:
+p = PriorityQueue()
+p.push('rekha', 4)
+p.push('priya', 7)
+p.push('arjun', 2)
+p.push('ash', 5)
+
+# Pop items from the queue based on priority
+while not p.is_empty():
+  print(p.pop())
